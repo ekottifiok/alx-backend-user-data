@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""Filtered Logger"""
 from typing import List
 from re import sub
 from mysql.connector import MySQLConnection
@@ -34,6 +36,17 @@ def filter_datum(fields: List[str], r: str, m: str, sep: str) -> str:
 
 
 def get_logger() -> Logger:
+    """Implement a get_logger function that takes no arguments
+    and returns a logging.Logger object.
+
+    The logger should be named "user_data" and only log up to
+    logging.INFO level. It should not propagate messages to other
+    loggers. It should have a StreamHandler with RedactingFormatter
+    as formatter.
+
+    Returns:
+        Logger: _description_
+    """
     logger = getLogger('user_data')
     logger.setLevel(INFO)
     logger.propagate = False
@@ -59,7 +72,7 @@ def get_db() -> MySQLConnection:
 
 class RedactingFormatter(Formatter):
     """ Redacting Formatter class
-        """
+    """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
@@ -86,11 +99,11 @@ class RedactingFormatter(Formatter):
             super(RedactingFormatter, self).format(record),
             self.SEPARATOR
         )
-        
-
 
 
 def main():
+    """main function
+    """
     fields = "name,email,phone,ssn,password,ip,last_login,user_agent"
     cursor = get_db().cursor()
     cursor.execute(f"SELECT {fields} FROM users;")
