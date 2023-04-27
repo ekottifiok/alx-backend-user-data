@@ -31,7 +31,7 @@ def filter_datum(fields: List[str], r: str, m: str, sep: str) -> str:
             has being removed
     """
     for item in fields:
-        m = sub("(?<={}=)[^;]+".format(item), r, m)
+        m = sub("(?<={}=)[^{}]+".format(item, sep), r, m)
     return m
 
 
