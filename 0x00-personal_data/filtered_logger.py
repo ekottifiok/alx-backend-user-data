@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Filtered Logger"""
 from typing import List
-from re import sub
+import re
 from mysql.connector import MySQLConnection
 from os import getenv
 from logging import (
@@ -31,7 +31,7 @@ def filter_datum(fields: List[str], r: str, m: str, sep: str) -> str:
             has being removed
     """
     for item in fields:
-        m = sub("(?<={}=)[^{}]+".format(item, sep), r, m)
+        m = re.sub("(?<={}=)[^{}]+".format(item, sep), r, m)
     return m
 
 
