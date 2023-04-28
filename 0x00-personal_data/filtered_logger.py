@@ -108,10 +108,12 @@ def main():
     cursor = get_db().cursor()
     cursor.execute(f"SELECT {fields} FROM users;")
     for r in cursor.fetchall():
-        get_logger().handle(LogRecord(name="user_data", level=INFO, msg='{};'.format('; '.join(list(map(
-            lambda x: '{}={}'.format(x[0], x[1]),
-            zip(fields.split(','), r),
-        ))))))
+        get_logger().handle(LogRecord(
+            name="user_data", level=INFO, msg='{};'.format(
+                '; '.join(list(map(
+                    lambda x: '{}={}'.format(x[0], x[1]),
+                    zip(fields.split(','), r),
+                ))))))
 
 
 if __name__ == "__main__":
