@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Filtered Logger"""
+"""Filtered Logger module
+"""
 from typing import List
 import re
 from mysql.connector import MySQLConnection
@@ -71,7 +72,13 @@ def get_db() -> MySQLConnection:
 
 
 class RedactingFormatter(Formatter):
-    """ Redacting Formatter class
+    """Redacting Formatter
+
+    Args:
+        Formatter (_type_): _description_
+
+    Returns:
+        _type_: _description_
     """
 
     REDACTION = "***"
