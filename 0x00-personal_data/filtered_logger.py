@@ -4,8 +4,8 @@ from typing import List
 import re
 from mysql.connector import MySQLConnection
 from os import getenv
+import logging
 from logging import (
-    Formatter,
     getLogger,
     INFO,
     Logger,
@@ -70,7 +70,7 @@ def get_db() -> MySQLConnection:
     )
 
 
-class RedactingFormatter(Formatter):
+class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
     """
 
@@ -102,7 +102,7 @@ class RedactingFormatter(Formatter):
 
 
 def main():
-    """main function
+    """main function does not return anything
     """
     fields = "name,email,phone,ssn,password,ip,last_login,user_agent"
     cursor = get_db().cursor()
