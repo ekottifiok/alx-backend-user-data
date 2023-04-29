@@ -9,7 +9,7 @@ Use bcrypt to validate that the provided password matches
 the hashed password.
 
 """
-from bcrypt import checkpw, hashpw, gensalt
+import bcrypt
 
 
 def hash_password(password: str) -> bytes:
@@ -23,7 +23,7 @@ def hash_password(password: str) -> bytes:
     Returns:
         bytes: _description_
     """
-    return hashpw(bytes(password, "utf-8"), gensalt())
+    return bcrypt.hashpw(bytes(password, "utf-8"), bcrypt.gensalt())
 
 
 def is_valid(hashed_password: bytes, password: str) -> bool:
@@ -37,4 +37,4 @@ def is_valid(hashed_password: bytes, password: str) -> bool:
     Returns:
         bool: True if the password matches and False if not
     """
-    return checkpw(bytes(password, 'utf-8'), hashed_password)
+    return bcrypt.checkpw(bytes(password, 'utf-8'), hashed_password)
