@@ -42,9 +42,8 @@ class Auth:
         Returns:
             str: _description_
         """
-        return None if request is None or not isinstance(request, dict) or \
-            'Authorization' not in request.keys() \
-            else request['Authorization']
+        from flask import request as req
+        return None if request is None else req.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """that returns None - request will be the Flask request object
