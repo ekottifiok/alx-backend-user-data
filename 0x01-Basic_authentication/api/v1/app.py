@@ -17,17 +17,19 @@ if getenv('AUTH_TYPE') == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
 
+
 @app.before_request
 def run_before_request():
     """run this command before any request is made
     """
     if auth is None \
-        or request.path not in e:
+            or request.path not in e:
         return
     if auth.authorization_header(request) is None:
         abort(401)
     if auth.current_user(request) is None:
         abort(403)
+
 
 @app.errorhandler(401)
 def unauthorized_access(error) -> str:
