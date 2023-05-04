@@ -10,3 +10,5 @@ __pycache__
 0x01-Basic_authentication/.db_User.json
 GET
 Host
+0x01-Basic_authentication/api/v1/app.py
+user_data_venv
