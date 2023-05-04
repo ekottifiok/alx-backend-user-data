@@ -5,7 +5,7 @@ __pycache__
 
 .venv
 .DS_Store
-0x01-Basic_authentication/main_*.py
+*/main_*.py
 .vscode
 0x01-Basic_authentication/.db_User.json
 GET

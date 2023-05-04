@@ -25,7 +25,7 @@ def view_one_user(user_id: str = None) -> str:
       - User object JSON represented
       - 404 if the User ID doesn't exist
     """
-    if user_id is None:
+    if user_id is None or (user_id == "me" and request.current_user is None):
         abort(404)
     user = User.get(user_id)
     if user is None:
@@ -120,3 +120,7 @@ def update_user(user_id: str = None) -> str:
         user.last_name = rj.get('last_name')
     user.save()
     return jsonify(user.to_json()), 200
+
+@app_views.route('/users/me', methods=['GET'], strict_slashes=False)
+def view_profile() -> str:
+    return "Hello"

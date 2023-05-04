@@ -8,7 +8,7 @@ from api.v1.auth.auth import Auth
 
 
 class BasicAuth(Auth):
-    """Basic Authentication class
+    """Basic Authentication class it's the main class in this module
 
     Args:
         Auth (_type_): _description_
@@ -36,7 +36,7 @@ class BasicAuth(Auth):
 
     def decode_base64_authorization_header(
             self, base64_authorization_header: str) -> str:
-        """ that returns the decoded value of a Base64
+        """that returns the decoded value of a Base64
         string base64_authorization_header:
 
         Args:
@@ -54,7 +54,9 @@ class BasicAuth(Auth):
             return None
 
     def extract_user_credentials(
-            self, decoded_base64_authorization_header: str) -> (str, str):
+        self,
+        decoded_base64_authorization_header: str
+    ) -> (str, str):  # type: ignore
         """in the class BasicAuth that returns the user email and
         password from theBase64 decoded value.
 
@@ -69,15 +71,12 @@ class BasicAuth(Auth):
                 isinstance(decoded_base64_authorization_header, str)) or \
                 ":" not in decoded_base64_authorization_header:
             return None, None
-        splitted = decoded_base64_authorization_header.split(":")
-        if len(splitted) < 2:
-            return None, None
-        return tuple([splitted[0], ":".join(splitted[1:])])
+        return tuple(decoded_base64_authorization_header.split(':', 1))
 
     def user_object_from_credentials(
             self, user_email: str,
             user_pwd: str) -> TypeVar('User'):  # type: ignore
-        """ in the class BasicAuth that returns the User instance
+        """in the class BasicAuth that returns the User instance
         based on his email and password.
 
         Args:
@@ -101,9 +100,9 @@ class BasicAuth(Auth):
 
         Returns:
             _type_: instance of the user
-        """        
+        """
         try:
-            self.user_object_from_credentials(
+            return self.user_object_from_credentials(
                 *self.extract_user_credentials(
                     self.decode_base64_authorization_header(
                         self.extract_base64_authorization_header(

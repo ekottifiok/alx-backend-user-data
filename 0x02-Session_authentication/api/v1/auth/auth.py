@@ -2,7 +2,8 @@
 """Auth Module that carries the Auth class and it functions
 """
 from typing import List, TypeVar
-from re import search
+from re import match
+from flask import request as req
 
 
 class Auth:
@@ -26,8 +27,9 @@ class Auth:
                           for item in excluded_paths]
         path = path if path[-1] != '/' else path[:-1]
         for p in excluded_paths:
-            if "*" in p:
-                if search(p, path):
+            if p[-1] == "*":
+                regex = match(p, path)
+                if regex and regex.group() == p[:-1]:
                     return False
             if p == path:
                 return False
@@ -42,10 +44,14 @@ class Auth:
         Returns:
             str: _description_
         """
-        if request is None or not isinstance(request, dict) or \
-            'Authorization' not in request.keys():
-            return None
-        return request['Authorization']
+        return None if request is None else req.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
+        """that returns None - request will be the Flask request object
+        """
+        from flask import Flask
+        request = Flask(__name__)
         return None
+    
+    def session_cookie(self, request=None):
+        return req.cookies.get("_my_session_id")

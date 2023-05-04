@@ -12,22 +12,39 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
-e = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
-if getenv('AUTH_TYPE') == 'auth':
+
+if getenv("AUTH_TYPE") == "auth":
     from api.v1.auth.auth import Auth
     auth = Auth()
+elif getenv("AUTH_TYPE") == "basic_auth":
+    from api.v1.auth.basic_auth import BasicAuth
+    auth = BasicAuth()
+elif getenv("AUTH_TYPE") == "session_auth":
+    from api.v1.auth.session_auth import SessionAuth
+    auth = SessionAuth()
+
 
 @app.before_request
 def run_before_request():
     """run this command before any request is made
+    in this I"m checking if the authorization is set
     """
+    e = [
+        "/api/v1/status/",
+        "/api/v1/unauthorized/",
+        "/api/v1/forbidden/",
+        "/api/v1/auth_session/login/"
+    ]
     if auth is None \
-        or request.path not in e:
+            or not auth.require_auth(request.path, e):
         return
-    if auth.authorization_header(request) is None:
+    if auth.authorization_header(request) is None \
+        and auth.session_cookie(request) is None:
         abort(401)
-    if auth.current_user(request) is None:
+    current_user = auth.current_user(request)
+    if current_user is None:
         abort(403)
+    request.current_user = current_user
 
 @app.errorhandler(401)
 def unauthorized_access(error) -> str:
