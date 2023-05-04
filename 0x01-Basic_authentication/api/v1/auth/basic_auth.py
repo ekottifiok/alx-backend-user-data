@@ -8,7 +8,7 @@ from api.v1.auth.auth import Auth
 
 
 class BasicAuth(Auth):
-    """Basic Authentication class
+    """Basic Authentication class it's the main class in this module
 
     Args:
         Auth (_type_): _description_
@@ -54,7 +54,9 @@ class BasicAuth(Auth):
             return None
 
     def extract_user_credentials(
-            self, decoded_base64_authorization_header: str) -> (str, str):
+            self,
+            decoded_base64_authorization_header: str
+        ) -> (str, str):  # type: ignore
         """in the class BasicAuth that returns the user email and
         password from theBase64 decoded value.
 
