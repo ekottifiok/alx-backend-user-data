@@ -8,7 +8,13 @@ from api.v1.auth.auth import Auth
 
 
 class BasicAuth(Auth):
-    """_summary_
+    """Basic Authentication class
+
+    Args:
+        Auth (_type_): _description_
+
+    Returns:
+        _type_: _description_
     """
 
     def extract_base64_authorization_header(
@@ -91,8 +97,11 @@ class BasicAuth(Auth):
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """_summary_
-        """
+        """gets the current user and checks for authorization
+
+        Returns:
+            _type_: instance of the user
+        """        
         try:
             self.user_object_from_credentials(
                 *self.extract_user_credentials(
