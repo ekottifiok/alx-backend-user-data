@@ -24,8 +24,8 @@ def test_unauthorized():
     abort(401)
 
 
-@app_views.route('/api/v1/forbidden', methods=['GET'], strict_slashes=False)
-def tes_forbidden():
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def test_forbidden():
     """_summary_
 
     Returns:
