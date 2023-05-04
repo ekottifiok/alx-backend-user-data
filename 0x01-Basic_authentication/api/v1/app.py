@@ -19,6 +19,8 @@ if getenv('AUTH_TYPE') == 'auth':
 
 @app.before_request
 def run_before_request():
+    """run this command before any request is made
+    """
     if auth is None \
         or request.path not in e:
         return
