@@ -2,7 +2,7 @@
 """Auth Module that carries the Auth class and it functions
 """
 from typing import List, TypeVar
-from re import search
+from re import match
 
 
 class Auth:
@@ -26,8 +26,9 @@ class Auth:
                           for item in excluded_paths]
         path = path if path[-1] != '/' else path[:-1]
         for p in excluded_paths:
-            if "*" in p:
-                if search(p, path):
+            if p[-1] == "*":
+                regex = match(p, path)
+                if regex and regex.group() == p[:-1]:
                     return False
             if p == path:
                 return False
