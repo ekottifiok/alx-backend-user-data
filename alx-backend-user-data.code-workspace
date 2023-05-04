@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "0x00-personal_data"
+		},
+		{
+			"path": "0x01-Basic_authentication"
+		},
+		{
+			"path": "0x02-Session_authentication"
+		}
+	],
+	"settings": {}
+}

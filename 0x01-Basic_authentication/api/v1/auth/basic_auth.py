@@ -71,10 +71,7 @@ class BasicAuth(Auth):
                 isinstance(decoded_base64_authorization_header, str)) or \
                 ":" not in decoded_base64_authorization_header:
             return None, None
-        splitted = decoded_base64_authorization_header.split(":")
-        if len(splitted) < 2:
-            return None, None
-        return tuple([splitted[0], ":".join(splitted[1:])])
+        return tuple(decoded_base64_authorization_header.split(':', 1))
 
     def user_object_from_credentials(
             self, user_email: str,
@@ -105,7 +102,7 @@ class BasicAuth(Auth):
             _type_: instance of the user
         """
         try:
-            self.user_object_from_credentials(
+            return self.user_object_from_credentials(
                 *self.extract_user_credentials(
                     self.decode_base64_authorization_header(
                         self.extract_base64_authorization_header(
