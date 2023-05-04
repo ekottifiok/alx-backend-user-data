@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
-e = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+
 if getenv('AUTH_TYPE') == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
@@ -23,8 +23,13 @@ def run_before_request():
     """run this command before any request is made
     in this I'm checking if the authorization is set
     """
+    e = [
+        '/api/v1/status/',
+        '/api/v1/unauthorized/',
+        '/api/v1/forbidden/'
+    ]
     if auth is None \
-            or request.path not in e:
+            or not auth.require_auth(request.path, e):
         return
     if auth.authorization_header(request) is None:
         abort(401)
