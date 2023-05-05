@@ -12,13 +12,14 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 
-if getenv("AUTH_TYPE") == "auth":
+auth_type = getenv("AUTH_TYPE")
+if auth_type == "auth":
     from api.v1.auth.auth import Auth
     auth = Auth()
-elif getenv("AUTH_TYPE") == "basic_auth":
+elif auth_type == "basic_auth":
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
-elif getenv("AUTH_TYPE") == "session_auth":
+elif auth_type == "session_auth":
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
 
@@ -47,7 +48,7 @@ def run_before_request():
 
 
 @app.errorhandler(401)
-def unauthorized_access(error) -> str:
+def unauthorized_access(_) -> str:
     """error handler for unauthorized access
 
     Args:
@@ -60,7 +61,7 @@ def unauthorized_access(error) -> str:
 
 
 @app.errorhandler(403)
-def forbidden(error) -> str:
+def forbidden(_) -> str:
     """error handler for 403 status code
 
     Args:
@@ -73,7 +74,7 @@ def forbidden(error) -> str:
 
 
 @app.errorhandler(404)
-def not_found(error) -> str:
+def not_found(_) -> str:
     """Not found handler returns 
 
     Args:
