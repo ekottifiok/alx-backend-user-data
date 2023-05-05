@@ -82,7 +82,7 @@ def not_found(error) -> str:
 
     Returns:
         str: json
-    """    
+    """
     return jsonify({"error": "Not found"}), 404
 
 
