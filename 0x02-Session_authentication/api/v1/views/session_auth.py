@@ -45,7 +45,7 @@ def session_login() -> str:
 @app_views.route(
     '/auth_session/logout', methods=['DELETE'], strict_slashes=False)
 def session_logout() -> str:
-    """deletes a session and if deleted 
+    """deletes a session and if deleted
 
     Returns:
         str: an empty json
