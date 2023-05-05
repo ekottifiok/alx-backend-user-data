@@ -10,5 +10,7 @@
 			"path": "0x02-Session_authentication"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"clock.active": true
+	}
 }

@@ -124,4 +124,9 @@ def update_user(user_id: str = None) -> str:
 
 @app_views.route('/users/me', methods=['GET'], strict_slashes=False)
 def view_profile() -> str:
+    """view profile of the user
+
+    Returns:
+        str: _description_
+    """    
     return "Hello"

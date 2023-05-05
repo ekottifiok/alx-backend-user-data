@@ -54,4 +54,12 @@ class Auth:
         return None
 
     def session_cookie(self, request=None):
+        """creates session cookies
+
+        Args:
+            request (_type_, optional): _description_. Defaults to None.
+
+        Returns:
+            _type_: _description_
+        """        
         return req.cookies.get("_my_session_id")
