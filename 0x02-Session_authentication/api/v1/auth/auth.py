@@ -52,6 +52,6 @@ class Auth:
         from flask import Flask
         request = Flask(__name__)
         return None
-    
+
     def session_cookie(self, request=None):
         return req.cookies.get("_my_session_id")
