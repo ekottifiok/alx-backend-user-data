@@ -39,12 +39,13 @@ def run_before_request():
             or not auth.require_auth(request.path, e):
         return
     if auth.authorization_header(request) is None \
-        and auth.session_cookie(request) is None:
+            and auth.session_cookie(request) is None:
         abort(401)
     current_user = auth.current_user(request)
     if current_user is None:
         abort(403)
     request.current_user = current_user
+
 
 @app.errorhandler(401)
 def unauthorized_access(error) -> str:
