@@ -2,7 +2,6 @@
 """
 Route module for the API
 """
-from os import getenv
 from api.v1.views import app_views
 from flask import abort, Flask, jsonify, request
 from flask_cors import CORS
