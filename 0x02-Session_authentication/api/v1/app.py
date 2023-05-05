@@ -75,7 +75,7 @@ def forbidden(_) -> str:
 
 @app.errorhandler(404)
 def not_found(_) -> str:
-    """Not found handler returns 
+    """Not found handler returns
 
     Args:
         error (_type_): _description_
