@@ -2,11 +2,12 @@
 """Module for Session Authentication views
 """
 from api.v1.views import app_views
-from flask import jsonify, request, sessions
+from flask import jsonify, request
 from models.user import User
 
 
-@app_views.route('/auth_session/login', methods=['GET'], strict_slashes=False)
+@app_views.route(
+    '/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_login() -> str:
     """GET for /auth_session/login
 
@@ -25,13 +26,33 @@ def session_login() -> str:
         if user == []:
             raise Exception
     except Exception:
-        return jsonify({ "error": "no user found for this email" }), 404
+        return jsonify({"error": "no user found for this email"}), 404
 
     user = user[0]
     if not user.is_valid_password(password):
-        return jsonify({ "error": "wrong password" }), 401
-    from api.v1.auth.session_auth import SessionAuth
-    
-    session = SessionAuth.create_session(user.get(id))
-    return jsonify(user.to_json()).set_cookie("_my_session_id", session)
-        
+        return jsonify({"error": "wrong password"}), 401
+    from api.v1.app import auth
+    from os import getenv
+
+    sessiond_id = auth.create_session(getattr(user, 'id'))
+    ret = jsonify(user.to_json())
+    ret.set_cookie(
+        getenv("SESSION_NAME"), sessiond_id
+    )
+    return ret
+
+
+@app_views.route(
+    '/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def session_logout() -> str:
+    """deletes a session and if deleted 
+
+    Returns:
+        str: an empty json
+    """
+    from api.v1.app import auth
+    from flask import abort
+
+    if not auth.destroy_session(request):
+        abort(404)
+    return jsonify({})
