@@ -63,4 +63,4 @@ class Auth:
         Returns:
             _type_: _description_
         """
-        return req.cookies.get(getenv("SESSION_NAME"))
+        return req.cookies.get(getenv("SESSION_NAME")) if request else None
