@@ -42,7 +42,9 @@ class SessionDBAuth(SessionExpAuth):
             user_session = UserSession()
             user_session.load_from_file()
             user_session = user_session.search({"session_id": session_id})[0]
-            if not user_session or timedelta(seconds=self.session_duration)+user_session.created_at < datetime.now():
+            if not user_session or timedelta(
+                seconds=self.session_duration
+            ) + user_session.created_at < datetime.now():
                 return None
 
             user_id = user_session.user_id
