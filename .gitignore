@@ -12,3 +12,6 @@ GET
 Host
 0x01-Basic_authentication/api/v1/app.py
 user_data_venv
+0x02-Session_authentication/env.sh
+0x02-Session_authentication/.db_UserSession.json
+0x02-Session_authentication/.db_User.json
