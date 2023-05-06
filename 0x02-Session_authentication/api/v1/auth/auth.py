@@ -4,6 +4,7 @@
 from typing import List, TypeVar
 from re import match
 from flask import request as req
+from os import getenv
 
 
 class Auth:
@@ -61,5 +62,5 @@ class Auth:
 
         Returns:
             _type_: _description_
-        """        
-        return req.cookies.get("_my_session_id")
+        """
+        return req.cookies.get(getenv("SESSION_NAME"))
