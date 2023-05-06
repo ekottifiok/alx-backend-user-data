@@ -129,6 +129,4 @@ def view_profile() -> str:
     Returns:
         str: _description_
     """
-    from api.v1.auth.basic_auth import BasicAuth
-    auth = BasicAuth()
-    return jsonify(auth.current_user(request).to_json()), 200
+    return jsonify(request.current_user.to_json()), 200
