@@ -50,7 +50,7 @@ class SessionExpAuth(SessionAuth):
 
         Returns:
             _type_: _description_
-        """        
+        """
         if not session_id:
             return None
         session_id_data = self.user_id_by_session_id.get(session_id, None)
