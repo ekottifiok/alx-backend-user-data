@@ -38,7 +38,7 @@ class SessionAuth(Auth):
         Returns:
             str: _description_
         """
-        if session_id is None or not isinstance(session_id, str):
+        if not session_id or not isinstance(session_id, str):
             return None
         return self.user_id_by_session_id.get(session_id)
 

@@ -37,6 +37,8 @@ class SessionDBAuth(SessionExpAuth):
         Args:
             session_id (_type_, optional): _description_. Defaults to None.
         """
+        if not session_id:
+            return None
         user_id = super().user_id_for_session_id(session_id)
         if not user_id:
             user_session = UserSession()
