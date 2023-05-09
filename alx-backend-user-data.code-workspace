@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "0x02-Session_authentication"
+		},
+		{
+			"path": "0x03-user_authentication_service"
 		}
 	],
 	"settings": {
