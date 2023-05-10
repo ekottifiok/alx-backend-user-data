@@ -433,12 +433,12 @@ bob@dylan:~$
 - Directory: 0x03-user_authentication_service
 - File: app.py
 
-8. Credentials validation
-mandatory
+# 8. Credentials validation
+
 In this task, you will implement the Auth.valid_login method. It should expect email and password required arguments and return a boolean.
 
 Try locating the user by email. If it exists, check the password with bcrypt.checkpw. If it matches return True. In any other case, return False.
-
+```
 bob@dylan:~$ cat main.py
 #!/usr/bin/env python3
 """
@@ -463,14 +463,14 @@ True
 False
 False
 bob@dylan:~$
+```
 ### Repo:
 
 - GitHub repository: alx-backend-user-data
 - Directory: 0x03-user_authentication_service
 - File: auth.py
 
-9. Generate UUIDs
-mandatory
+## 9. Generate UUIDs
 In this task you will implement a _generate_uuid function in the auth module. The function should return a string representation of a new UUID. Use the uuid module.
 
 Note that the method is private to the auth module and should NOT be used outside of it.
@@ -479,16 +479,15 @@ Note that the method is private to the auth module and should NOT be used outsid
 
 - GitHub repository: alx-backend-user-data
 - Directory: 0x03-user_authentication_service
-- File: auth.py
+- File: [auth.py](./auth.py)
 
-10. Get session ID
-mandatory
+## 10. Get session ID
 In this task, you will implement the Auth.create_session method. It takes an email string argument and returns the session ID as a string.
 
 The method should find the user corresponding to the email, generate a new UUID and store it in the database as the user’s session_id, then return the session ID.
 
 Remember that only public methods of self._db can be used.
-
+```
 bob@dylan:~$ cat main.py
 #!/usr/bin/env python3
 """
@@ -509,13 +508,14 @@ bob@dylan:~$ python3 main.py
 5a006849-343e-4a48-ba4e-bbd523fcca58
 None
 bob@dylan:~$
+```
 ### Repo:
 
 - GitHub repository: alx-backend-user-data
 - Directory: 0x03-user_authentication_service
-- File: auth.py
+- File: [auth.py](./auth.py)
 
-11. Log in
+## 11. Log in
 mandatory
 In this task, you will implement a login function to respond to the POST /sessions route.
 
@@ -525,7 +525,10 @@ If the login information is incorrect, use flask.abort to respond with a 401 HTT
 
 Otherwise, create a new session for the user, store it the session ID as a cookie with key "session_id" on the response and return a JSON payload of the form
 
+```
 {"email": "<user email>", "message": "logged in"}
+```
+```
 bob@dylan:~$ curl -XPOST localhost:5000/users -d 'email=bob@bob.com' -d 'password=mySuperPwd'
 {"email":"bob@bob.com","message":"user created"}
 bob@dylan:~$
@@ -579,6 +582,7 @@ Note: Unnecessary use of -X or --request, POST is already inferred.
 <p>The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.</p>
 * Closing connection 0
 bob@dylan:~$
+```
 ### Repo:
 
 - GitHub repository: alx-backend-user-data
