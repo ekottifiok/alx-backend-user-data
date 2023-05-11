@@ -8,6 +8,7 @@ from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
 from user import Base, User
+from typing import Any, List
 
 
 class DB:
@@ -17,7 +18,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -54,7 +55,7 @@ class DB:
             user_instance = None
         return user_instance
 
-    def find_user_by(self, **kwargs) -> User:
+    def find_user_by(self, **kwargs: Any) -> User:
         """This method takes in arbitrary keyword arguments and returns
         the first row found in the users table as filtered by the method's
         input arguments. No validation of input arguments
@@ -81,7 +82,7 @@ class DB:
             raise NoResultFound()
         return result
 
-    def update_user(self, user_id: int, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs: Any) -> None:
         """method that takes as argument a required user_id integer and
         arbitrary keyword arguments, and returns None.
 
