@@ -2,17 +2,15 @@
 """Database module
 """
 from sqlalchemy import create_engine, tuple_
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
 from user import Base, User
-from typing import Any, List
 
 
 class DB:
-    """DB class
+    """Database class
     """
 
     def __init__(self) -> None:
@@ -55,7 +53,7 @@ class DB:
             user_instance = None
         return user_instance
 
-    def find_user_by(self, **kwargs: Any) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """This method takes in arbitrary keyword arguments and returns
         the first row found in the users table as filtered by the method's
         input arguments. No validation of input arguments
@@ -82,7 +80,7 @@ class DB:
             raise NoResultFound()
         return result
 
-    def update_user(self, user_id: int, **kwargs: Any) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """method that takes as argument a required user_id integer and
         arbitrary keyword arguments, and returns None.
 
