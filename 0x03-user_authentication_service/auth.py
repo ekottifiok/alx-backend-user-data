@@ -75,8 +75,8 @@ class Auth:
             user = self._db.find_user_by(email=email)
         except Exception:
             return False
-        if email == user.email and checkpw(
-                password.encode(), bytes(str(user.hashed_password), encoding="utf-8")):
+        if email == user.email and checkpw(password.encode(), bytes(
+                str(user.hashed_password), encoding="utf-8")):
             return True
         return False
 

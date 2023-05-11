@@ -5,6 +5,7 @@ from flask import abort, Flask, jsonify, redirect, request
 from flask.wrappers import Response
 from auth import Auth
 from typing import Tuple
+from werkzeug.wrappers.response import Response as Werk_Response
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -52,7 +53,7 @@ def login() -> Tuple[Response, int]:
 
 
 @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
-def logout() -> None:
+def logout() -> Werk_Response:
     """you will implement a logout function to
     respond to the DELETE /sessions route.
 
